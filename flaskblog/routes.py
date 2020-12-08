@@ -72,7 +72,7 @@ def search():
             query_term = query_term.replace(' ','%20')
             query_term_with_spaces = form.search.data
 
-            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=full_text%3A'+query_term+'&rows=20&sort=influencer_score%20desc&stopwords=true&wt=json')
+            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=full_text%3A'+query_term+'&rows=10&sort=influencer_score%20desc&stopwords=true&wt=json')
             #print('http://100.25.155.102:8983/solr/IRF20P4/select?defType=edismax&q=full_text%3A'+query_term+'&rows=30&sort=influencer_score%20desc&stopwords=true')
             posts = json.load(data)['response']['docs']
             for element in posts:
@@ -91,7 +91,7 @@ def search():
     if form1.validate_on_submit():
         if(form1.select.data!=''):
             x = []
-            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=country%3A'+form1.select.data+'&rows=20&sort=influencer_score%20desc&stopwords=true&wt=json')
+            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=country%3A'+form1.select.data+'&rows=10&sort=influencer_score%20desc&stopwords=true&wt=json')
             posts = json.load(data)['response']['docs']
             for element in posts:
                 name = element['user'][0]
@@ -109,7 +109,7 @@ def search():
     if(form2.validate_on_submit()):
         if(form2.select.data!=''):
             x = []
-            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=user%3A'+form2.select.data+'&rows=20&sort=influencer_score%20desc&stopwords=true&wt=json')
+            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=user%3A'+form2.select.data+'&rows=10&sort=influencer_score%20desc&stopwords=true&wt=json')
             posts = json.load(data)['response']['docs']
             for element in posts:
                 name = element['user'][0]
