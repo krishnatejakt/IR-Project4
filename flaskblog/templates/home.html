@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for post in posts %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#"> <h3>{{post.user_name}}</h3> </a>
+            <small class="text-muted"><p>{{post.full_text[0]}}</p></small>
+        </div>
+
+    {% if post.sentiment_score > 0 %}
+    <p>{{post.sentiment_score}}</p>
+    <p>Extremely positive</p>
+
+    {% else %}
+    <p>{{post.sentiment_score}}</p>
+    <p>Negative</p>
+</div>
+    {% endif %}
+</article>
+    {% endfor %}
+
+{% endblock content %}
+
+
+
+{% block contents %}
+    {% for record in tests %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#"> <h3>{{record.abstract}}</h3> </a>
+            <small class="text-muted"><p>{{record.abstract}}</p></small>
+        </div>
+
+        {% if record.sentiment_score > 0 %}
+        <p>{{record.sentiment_score}}</p>
+        <p>Extremely positive</p>
+    
+        {% else %}
+        <p>{{record.sentiment_score}}</p>
+        <p>Negative</p>
+
+
+</div>
+
+{% endif %}
+</article>
+    {% endfor %}
+
+{% endblock contents %}
+
+{% block content_specific %}
+    <article class="media content-section">
+        <div class="media-body">
+
+            {{posts1}}
+
+
+</div>
+
+
+</article>
+
+{% endblock content_specific %}
