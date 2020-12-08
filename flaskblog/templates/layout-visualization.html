@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='main.css')}}">
         <title>Visualize</title>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  
     </head>
 
     <body>
@@ -24,6 +26,7 @@
                     <a class="nav-item nav-link" href="/">Home</a>
                     <a class="nav-item nav-link" href="/search">Search</a>
                     <a class="nav-item nav-link" href="/visualization">Visualize</a>
+                    <a class="nav-item nav-link" href="{{url_for('static',filename='lda.html')}}">Topic Analysis</a>
                     <a class="nav-item nav-link" href="/about">About</a>
                   </div>
                   <!-- Navbar Right Side -->
@@ -72,6 +75,12 @@
               </div>
 
             </div>
+
+            <div class="row">
+              {% block specific_treemap %}{% endblock specific_treemap %}
+
+            </div>
+
           </main>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

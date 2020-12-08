@@ -9,11 +9,11 @@
         </div>
 
     {% if post.sentiment_score > 0 %}
-    <p>{{post.sentiment_score}}</p>
+    <p>Sentiment Score: {{post.sentiment_score}}</p>
     <p>Positive</p>
 
     {% else %}
-    <p>{{post.sentiment_score}}</p>
+    <p>Sentiment Score: {{post.sentiment_score}}</p>
     <p>Negative</p>
 </div>
     {% endif %}
@@ -29,22 +29,12 @@
     <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="#"> <h3>{{record.abstract}}</h3> </a>
-            <small class="text-muted"><p>{{record.abstract}}</p></small>
+            <a class="mr-2" href="#"> <h3>{{record.title}}</h3> </a>
+            <small class="text-muted"><p>{{record.description}}</p></small>
+            <a class="text-muted"><a>{{record.url}}</a></a>
         </div>
 
-        {% if record.sentiment_score > 0 %}
-        <p>{{record.sentiment_score}}</p>
-        <p>Extremely positive</p>
-    
-        {% else %}
-        <p>{{record.sentiment_score}}</p>
-        <p>Negative</p>
-
-
-</div>
-
-{% endif %}
+        
 </article>
     {% endfor %}
 
