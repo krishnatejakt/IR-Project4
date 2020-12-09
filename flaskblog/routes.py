@@ -104,6 +104,8 @@ def search():
     if form1.validate_on_submit():
         if(form1.select.data!=''):
             flash(f'Results for {form1.select.data}!','success')
+            query_term = form1.select.data
+
             x = []
             data = urlopen('http://'+ip_address+':8983/solr/IRF20P4/select?defType=edismax&q=country%3A'+form1.select.data+'&rows=15&sort=influencer_score%20desc&stopwords=true&wt=json')
             posts = json.load(data)['response']['docs']
@@ -123,6 +125,7 @@ def search():
         if(form2.select.data!=''):
             flash(f'Results for {form2.select.data}!','success')
             x = []
+            query_term = form2.select.data
             data = urlopen('http://'+ip_address+':8983/solr/IRF20P4/select?defType=edismax&q=user%3A'+form2.select.data+'&rows=15&sort=influencer_score%20desc&stopwords=true&wt=json')
             posts = json.load(data)['response']['docs']
             for element in posts:

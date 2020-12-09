@@ -17,7 +17,6 @@ def youtube_query(query):
         count+=1
         if(count==15):
             break
-    print(x)
     return x
 
     #print(video_ids)
