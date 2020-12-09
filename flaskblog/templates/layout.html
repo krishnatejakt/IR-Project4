@@ -36,8 +36,17 @@
           </header>
 
           <main role="main" class="container">
+
+
+
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
+            <h3>{% block content_specific %}{% endblock content_specific %}</h3>
+            </div>
+          
+          </div>
+            <div class="row">
+              <div class="col-md-4">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                 {% for category,message in messages %}
@@ -50,24 +59,23 @@
                 {% endwith %}
                 {% block content %}{% endblock content %}
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
             
 
 
                     {% block contents %}{% endblock contents %}
           
               </div>
-            </div>
 
-            <div class="row">
-
-              <div class="col-md-6">
-            
-
-
-                {% block content_specific %}{% endblock content_specific %}
+              <div class="col-md-4">
+                {% block youtube_specific %}
+                {% endblock youtube_specific %}
       
           </div>
+
+
+
+            </div>
 
             </div>
             

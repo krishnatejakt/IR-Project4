@@ -4,7 +4,7 @@
     <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="#"> <h3>{{post.user_name}}</h3> </a>
+            <a class="mr-2" href="#"> <h4>{{post.user_name}}</h4> </a>
             <small class="text-muted"><p>{{post.full_text[0]}}</p></small>
         </div>
 
@@ -29,9 +29,9 @@
     <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="#"> <h3>{{record.title}}</h3> </a>
+            <a class="mr-2" href="#"> <h5>{{record.title}}</h5> </a>
             <small class="text-muted"><p>{{record.description}}</p></small>
-            <a class="text-muted"><a>{{record.url}}</a></a>
+            <small class="text-muted"><a>{{record.url}}</a></small>
         </div>
 
         
@@ -41,15 +41,17 @@
 {% endblock contents %}
 
 {% block content_specific %}
-    <article class="media content-section">
-        <div class="media-body">
 
-            {{posts1}}
-
-
-</div>
-
-
-</article>
+{{ posts1 }}
 
 {% endblock content_specific %}
+
+{% block youtube_specific %}
+
+{% for video in youtube %}
+
+<iframe width="350" height="250" src = {{ video }} allowfullscreen="" width="100%" frameborder="0"> </iframe>
+
+{% endfor %}
+
+{% endblock youtube_specific %}

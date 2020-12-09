@@ -5,11 +5,16 @@ def news(query):
     # news_query = requests.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+query+'&api-key=KsLEcgWEJLqIkK2hdacjklZiPyHyOxLh&sort=newest&page=0') # (your url)
     # data = news_query.json()
     # return data['response']['docs']
-
-    url = ('http://newsapi.org/v2/everything?'
-       'q='+query+'&'
-       'from=2020-11-12&'
-       'sortBy=popularity&'
+    if(query!='Trending'):
+        url = ('http://newsapi.org/v2/everything?'
+        'q='+query+'&'
+        'from=2020-11-12&'
+        'sortBy=popularity&'
+        'apiKey=8ab0444ae6e74d0eb01c52f941647514&'
+        'page=1')
+    else:
+        url = url = ('http://newsapi.org/v2/top-headlines?'
+       'country=us&'
        'apiKey=8ab0444ae6e74d0eb01c52f941647514&'
        'page=1')
 
