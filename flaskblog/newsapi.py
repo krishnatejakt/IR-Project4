@@ -16,7 +16,6 @@ def news(query):
     try:
         response = requests.get(url)
         data = json.loads(json.dumps(response.json()))
-        print(data)
 
         return data['articles']
     except:
