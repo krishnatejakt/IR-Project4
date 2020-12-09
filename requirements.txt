@@ -50,7 +50,6 @@ multipledispatch==0.6.0
 numba==0.51.2
 numexpr==2.7.1
 numpy==1.17.0
-olefile==0.46k
 packaging==20.4
 parso==0.7.0
 partd==1.1.0
