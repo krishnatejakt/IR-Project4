@@ -10,6 +10,7 @@ from flaskblog.models import poi
 from flaskblog.forms import covid, poi_names, country, topic
 from urllib.request import urlopen
 
+ip_address = '54.237.53.72'
 
 
 # with open('flaskblog//json_files//covid19 AND coronavirus AND government.json') as f:
@@ -72,7 +73,7 @@ def search():
             query_term = query_term.replace(' ','%20')
             query_term_with_spaces = form.search.data
 
-            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=full_text%3A'+query_term+'&rows=15&sort=influencer_score%20desc&stopwords=true&wt=json')
+            data = urlopen('http://'+ip_address+':8983/solr/IRF20P4/select?defType=edismax&q=full_text%3A'+query_term+'&rows=15&sort=influencer_score%20desc&stopwords=true&wt=json')
             #print('http://100.25.155.102:8983/solr/IRF20P4/select?defType=edismax&q=full_text%3A'+query_term+'&rows=30&sort=influencer_score%20desc&stopwords=true')
             posts = json.load(data)['response']['docs']
             for element in posts:
@@ -83,15 +84,13 @@ def search():
                 element["sentiment_score"] = sentiment_score(element['full_text'][0].lower())
 
             query_news = news(query_term)
-            for record in query_news:
-                record["sentiment_score"] = sentiment_score(record['abstract'])
 
             return render_template('home.html',posts=posts,tests=query_news)
 
     if form1.validate_on_submit():
         if(form1.select.data!=''):
             x = []
-            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=country%3A'+form1.select.data+'&rows=15&sort=influencer_score%20desc&stopwords=true&wt=json')
+            data = urlopen('http://'+ip_address+':8983/solr/IRF20P4/select?defType=edismax&q=country%3A'+form1.select.data+'&rows=15&sort=influencer_score%20desc&stopwords=true&wt=json')
             posts = json.load(data)['response']['docs']
             for element in posts:
                 name = element['user'][0]
@@ -107,7 +106,7 @@ def search():
     if(form2.validate_on_submit()):
         if(form2.select.data!=''):
             x = []
-            data = urlopen('http://100.26.233.249:8983/solr/IRF20P4/select?defType=edismax&q=user%3A'+form2.select.data+'&rows=10&sort=influencer_score%20desc&stopwords=true&wt=json')
+            data = urlopen('http://'+ip_address+':8983/solr/IRF20P4/select?defType=edismax&q=user%3A'+form2.select.data+'&rows=15&sort=influencer_score%20desc&stopwords=true&wt=json')
             posts = json.load(data)['response']['docs']
             for element in posts:
                 name = element['user'][0]
@@ -120,14 +119,9 @@ def search():
 
             return render_template('home.html',posts=posts,tests=query_news)
             
-            #write
-    if(form3.validate_on_submit()):
-        if(form3.select.data!=''):
-            pass
-            #write
         
 
-    return render_template('search.html',form=form,form1=form1,form2=form2,form3=form3)
+    return render_template('search.html',form=form,form1=form1,form2=form2)
 
 @app.route('/visualization')
 

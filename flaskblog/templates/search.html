@@ -49,20 +49,3 @@
             </form>
         </div>
 {% endblock search_specific %}
-
-{% block specific %}
-        <div class="content-section">
-            <form method="POST" action="">
-                {{ form3.hidden_tag() }}
-                <fieldset class="form-group">
-                <legend class="border-bottom mb-4"> Topic Analysis </legend>
-                <div class="form-group">
-                    {{ form3.select(class="form-control form-control-lg") }}
-                </div>
-            </fieldset>
-                <div class="form-group">
-                    {{ form3.button_submit(class="btn btn-outline-info") }}
-                </div>
-            </form>
-        </div>
-{% endblock specific %}
