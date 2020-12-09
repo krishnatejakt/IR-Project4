@@ -43,7 +43,6 @@ lazy-object-proxy==1.4.3
 libarchive-c==2.9
 llvmlite==0.34.0
 locket==0.2.0
-lxml @ file:///C:/ci/lxml_1603216364379/work
 mccabe==0.6.1
 menuinst==1.4.16
 mkl-fft==1.0.14
