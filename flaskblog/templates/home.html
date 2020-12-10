@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
+
+{% if posts|length!=0 %}
     {% for post in posts %}
     <article class="media content-section">
         <div class="media-body">
@@ -25,11 +27,15 @@
 </article>
     {% endfor %}
 
+    {% else %}
+    <p>No results found in SOLR!</p>
+{% endif %}
 {% endblock content %}
 
 
 
 {% block contents %}
+{% if tests|length!=0 %}
     {% for record in tests %}
     <article class="media content-section">
         <div class="media-body">
@@ -42,6 +48,10 @@
         
 </article>
     {% endfor %}
+{% else %}
+<p>No Results found in News!</p>
+
+{% endif %}
 
 {% endblock contents %}
 

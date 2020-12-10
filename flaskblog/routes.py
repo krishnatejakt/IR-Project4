@@ -1,4 +1,5 @@
 from flaskblog.models import poi
+from google_trans_new import google_translator
 from flaskblog import app
 from flaskblog.youtube import youtube_query
 from flaskblog import db
@@ -10,27 +11,10 @@ from flaskblog.newsapi import news
 from flaskblog.models import poi
 from flaskblog.forms import covid, poi_names, country, topic
 from urllib.request import urlopen
+from urllib.parse import urlparse
+
 
 ip_address = '54.175.73.162'
-
-
-# with open('flaskblog//json_files//covid19 AND coronavirus AND government.json') as f:
-#     data = f.read()
-
-# data = data.replace('}{','},{')
-# data = '[' + data + ']'
-# posts = json.loads(data)
-# f.close()
-
-
-# for element in posts:
-#     element['sentiment_score'] = sentiment_score(element['full_text'])
-
-
-# query_news = news('x')
-
-# for record in query_news:
-#     record["sentiment_score"] = sentiment_score(record['abstract'])
 
 posts = []
 
@@ -73,6 +57,7 @@ def about():
 
 @app.route('/search',methods=['GET','POST'])
 def search():
+    gs = google_translator()
     form = covid()
     form1 = country()
     form2 = poi_names()
@@ -81,14 +66,18 @@ def search():
     if form.validate_on_submit():
 
         youtube_search_term = ''
-
         x = []
         if(form.search.data==''):
             query_term='\"\"'
+            query_term_dup = '\"\"'
         else:
             query_term = form.search.data
+            flash(f'Results for {form.search.data}!','success')
+            query_term_dup = gs.translate(query_term,'en')
             query_term = query_term.replace(' ','%20')
+            query_term = query_term.encode("raw-unicode-escape").decode("utf-8")
             #query_term = query_term.encode('utf-8')
+
         if(form.select.data==''):
             location='\"\"'
         else:
@@ -100,8 +89,8 @@ def search():
 
     
 
-        if(query_term!='\"\"'):
-             youtube_search_term+=query_term+' '
+        if(query_term_dup!='\"\"'):
+             youtube_search_term+=query_term_dup+' '
 
         if(poi!='\"\"'):
             youtube_search_term+=poi+' '
@@ -110,14 +99,24 @@ def search():
             youtube_search_term+=location
 
 
-    
-        youtube_term = youtube_query(youtube_search_term.replace(' ','%20'))
-        query_news = news(youtube_search_term.replace(' ','%20'))
+        youtube_search_term = youtube_search_term.replace(' ','%20')
+        youtube_term = youtube_query(youtube_search_term)
+        query_news = news(youtube_search_term)
+
+        print(youtube_search_term)
+
         data = urlopen('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&wt=json')
+        print('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&wt=json')
         posts = json.load(data)['response']['docs']
+
+
     
         for element in posts:
-            name = element['user.screen_name'][0]
+            try:
+                name = element['user.screen_name'][0]
+            except:
+                name = 'User_has_no_name!'
+
             element['profile_image'] = element['user.profile_image_url'][0]
             element['user_name'] = name
             x.append(element)

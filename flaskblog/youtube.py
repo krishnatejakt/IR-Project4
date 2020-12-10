@@ -2,10 +2,11 @@
 import urllib.request
 import re
 
+
 def youtube_query(query):
     x = []
+    
     if(query!='Trending'):
-        query = query
         html = urllib.request.urlopen("https://www.youtube.com/results?search_query="+query)
     else:
         html = html = urllib.request.urlopen("https://www.youtube.com/results?search_query=coronavirus")
