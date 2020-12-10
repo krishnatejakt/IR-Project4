@@ -11,7 +11,7 @@ from flaskblog.models import poi
 from flaskblog.forms import covid, poi_names, country, topic
 from urllib.request import urlopen
 
-ip_address = '54.204.148.255'
+ip_address = '54.175.73.162'
 
 
 # with open('flaskblog//json_files//covid19 AND coronavirus AND government.json') as f:
