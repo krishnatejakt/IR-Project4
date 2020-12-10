@@ -98,14 +98,7 @@ def search():
         else:
             poi = form.select1.data
 
-        if(query_term!='\"\"'):
-            query_news = news(query_term)
-
-        elif(location!='\"\"'):
-            query_news = news(location)
-
-        elif(poi!='\"\"'):
-            query_news = news(poi)
+    
 
         if(query_term!='\"\"'):
              youtube_search_term+=query_term+' '
@@ -116,13 +109,16 @@ def search():
         if(location!='\"\"'):
             youtube_search_term+=location
 
-        print(youtube_search_term)
+
+    
         youtube_term = youtube_query(youtube_search_term.replace(' ','%20'))
+        query_news = news(youtube_search_term.replace(' ','%20'))
         data = urlopen('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&wt=json')
         posts = json.load(data)['response']['docs']
     
         for element in posts:
             name = element['user.screen_name'][0]
+            element['profile_image'] = element['user.profile_image_url'][0]
             element['user_name'] = name
             x.append(element)
             element["sentiment_score"] = sentiment_score(element['full_text'][0].lower())
