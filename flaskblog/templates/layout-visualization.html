@@ -68,17 +68,21 @@
 
                 </div>
 
-                <div class="col-md-6">
-            
-                    {% block specific %}{% endblock specific %}
-          
-              </div>
+                
 
             </div>
 
             <div class="row">
+              <div class="col-md-4">
+                {% block specific %}{% endblock specific %}
+          </div>
+              <div class="col-md-4">
               {% block specific_treemap %}{% endblock specific_treemap %}
+              </div>
 
+              <div class="col-md-4">
+                {% block specific_treemap_second %}{% endblock specific_treemap_second %}
+                </div>
             </div>
 
           </main>

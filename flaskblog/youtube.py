@@ -8,7 +8,7 @@ def youtube_query(query):
         query = query
         html = urllib.request.urlopen("https://www.youtube.com/results?search_query="+query)
     else:
-        html = html = urllib.request.urlopen("https://www.youtube.com/feed/trending")
+        html = html = urllib.request.urlopen("https://www.youtube.com/results?search_query=coronavirus")
     
     video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
     count = 0

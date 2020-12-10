@@ -162,9 +162,9 @@
   {% block specific %}
 
   <center>
-    <h1>Correlation - COVID cases Vs POI Tweets</h1>
+    <h3>India - COVID cases Vs Prime Minister</h3>
     
-    <canvas id="chart4" width="400" height="250"></canvas>
+    <canvas id="chart4" width="350" height="250"></canvas>
     <div id="legendDiv"></div>
     <script>
 
@@ -195,34 +195,6 @@
           },
 
           {
-          label: "Trump",
-          fillColor: "rgba(0,0,0,0)",
-          strokeColor: "rgba(50,100,50,0.5)",
-          pointColor: "rgba(50,100,50,0.5)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(50,100,50,0.5)",
-          bezierCurve : false,
-          data : [
-	    {% for item in items1.realDonaldTrump %}
-              "{{ '%0.2f'|format((item-(items1.realDonaldTrump|min))/((items1.realDonaldTrump|max) - (items1.realDonaldTrump|min))|float) }}",
-            {% endfor %}]
-          },
-          {
-          label: "Matteo",
-          fillColor: "rgba(0,0,0,0)",
-          strokeColor: "rgba(255,72,0,1)",
-          pointColor: "rgba(255,72,0,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(255,72,0,0.5)",
-          bezierCurve : false,
-          data : [
-	    {% for item in items1.matteosalvinimi %}
-              "{{ '%0.2f'|format( (item-(items1.matteosalvinimi|min))/((items1.matteosalvinimi|max) - (items1.matteosalvinimi|min))|float ) }}",
-            {% endfor %}]
-          },
-          {
           label: "India",
           fillColor: "rgba(0,0,0,0)",
           strokeColor: "rgba(255,0,153,0.5)",
@@ -234,34 +206,6 @@
           data : [
 	    {% for item in items1.india %}
               "{{ '%0.2f'|format( (item-(items1.india|min))/((items1.india|max) - (items1.india|min))|float ) }}",
-            {% endfor %}]
-          },
-          {
-          label: "USA",
-          fillColor: "rgba(0,0,0,0)",
-          strokeColor: "rgba(110, 0, 255,0.5)",
-          pointColor: "rgba(110, 0, 255, 0.5)",
-          pointStrokeColor: "#ffff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(110, 0, 255, 0.5)",
-          bezierCurve : false,
-          data : [
-	    {% for item in items1.usa %}
-              "{{'%0.2f' |format( (item-(items1.usa|min))/((items1.usa|max) - (items1.usa|min))|float ) }}",
-            {% endfor %}]
-          },
-          {
-          label: "Italy",
-          fillColor: "rgba(0,0,0,0)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          bezierCurve : false,
-          data : [
-	    {% for item in items1.italy %}
-              "{{'%0.2f'|format( (item-(items1.italy|min))/((items1.italy|max) - (items1.italy|min))|float ) }}",
             {% endfor %}]
           }
 	]
@@ -312,8 +256,189 @@
 
   {% endblock specific %}
 
+
+
   {% block specific_treemap %}
 
-  
+  <center>
+    <h3>USA - COVID cases Vs President </h3>
+    
+    <canvas id="chart5" width="350" height="250"></canvas>
+    <div id="legendDiv2"></div>
+    <script>
+
+      // bar chart data
+      var barData5 = {
+        labels : [
+
+          "18-Aug", "19-Aug","20-Aug","21-Aug","22-Aug"
+        ],
+
+        datasets : [
+
+          {
+          label: "Trump",
+          fillColor: "rgba(0,0,0,0)",
+          strokeColor: "rgba(50,100,50,0.5)",
+          pointColor: "rgba(50,100,50,0.5)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(50,100,50,0.5)",
+          bezierCurve : false,
+          data : [
+	    {% for item in items1.realDonaldTrump %}
+              "{{ '%0.2f'|format((item-(items1.realDonaldTrump|min))/((items1.realDonaldTrump|max) - (items1.realDonaldTrump|min))|float) }}",
+            {% endfor %}]
+          },
+          {
+          label: "USA",
+          fillColor: "rgba(0,0,0,0)",
+          strokeColor: "rgba(110, 0, 255,0.5)",
+          pointColor: "rgba(110, 0, 255, 0.5)",
+          pointStrokeColor: "#ffff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(110, 0, 255, 0.5)",
+          bezierCurve : false,
+          data : [
+	    {% for item in items1.usa %}
+              "{{'%0.2f' |format( (item-(items1.usa|min))/((items1.usa|max) - (items1.usa|min))|float ) }}",
+            {% endfor %}]
+          }
+	]
+      }
+
+      Chart.defaults.global.animationSteps = 50;
+      Chart.defaults.global.tooltipYPadding = 16;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 16;
+
+      // get bar chart canvas
+      var mychart5 = document.getElementById("chart5").getContext("2d");
+      steps = 5
+      max = 1
+      
+      var options = {
+
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: max/steps,
+        scaleStartValue: 0,
+        scaleShowVerticalLines: false,
+        scaleShowGridLines : true,
+        barShowStroke : false,
+        scaleShowLabels: true,
+        bezierCurve: true,
+        legendTemplate : '<ul class=\"<%=name.toLowerCase()%>-legend\">'
+                  +'<% for (var i=0; i<datasets.length; i++) { %>'
+                    +'<span style=\"background-color:<%=datasets[i].strokeColor%>\">'
+                    +'<% if (datasets[i].label) { %><%= datasets[i].label %><% } %> &nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                +'<% } %>'
+              +'</ul>'
+};
+
+      
+      // draw bar chart
+      var LineChartDemo1 = new Chart(mychart5).Line(barData5,options);
+      
+      document.getElementById("legendDiv2").innerHTML = LineChartDemo1.generateLegend();
+    </script>
+  </center>
 
   {% endblock specific_treemap %}
+
+  {% block specific_treemap_second %}
+
+  <center>
+    <h3>Italy - COVID cases Vs Prime Minister</h3>
+    
+    <canvas id="chart6" width="350" height="250"></canvas>
+    <div id="legendDiv3"></div>
+    <script>
+
+      // bar chart data
+      var barData6 = {
+        labels : [
+
+          "18-Aug", "19-Aug","20-Aug","21-Aug","22-Aug"
+        ],
+
+        datasets : [
+          {
+          label: "Matteo",
+          fillColor: "rgba(0,0,0,0)",
+          strokeColor: "rgba(255,72,0,1)",
+          pointColor: "rgba(255,72,0,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(255,72,0,0.5)",
+          bezierCurve : false,
+          data : [
+	    {% for item in items1.matteosalvinimi %}
+              "{{ '%0.2f'|format( (item-(items1.matteosalvinimi|min))/((items1.matteosalvinimi|max) - (items1.matteosalvinimi|min))|float ) }}",
+            {% endfor %}]
+          },
+          {
+          label: "Italy",
+          fillColor: "rgba(0,0,0,0)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+	    {% for item in items1.italy %}
+              "{{'%0.2f'|format( (item-(items1.italy|min))/((items1.italy|max) - (items1.italy|min))|float ) }}",
+            {% endfor %}]
+          }
+	]
+      }
+
+      Chart.defaults.global.animationSteps = 50;
+      Chart.defaults.global.tooltipYPadding = 16;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 16;
+
+      // get bar chart canvas
+      var mychart6 = document.getElementById("chart6").getContext("2d");
+      steps = 5
+      max = 1
+      
+      var options = {
+
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: max/steps,
+        scaleStartValue: 0,
+        scaleShowVerticalLines: false,
+        scaleShowGridLines : true,
+        barShowStroke : false,
+        scaleShowLabels: true,
+        bezierCurve: true,
+        legendTemplate : '<ul class=\"<%=name.toLowerCase()%>-legend\">'
+                  +'<% for (var i=0; i<datasets.length; i++) { %>'
+                    +'<span style=\"background-color:<%=datasets[i].strokeColor%>\">'
+                    +'<% if (datasets[i].label) { %><%= datasets[i].label %><% } %> &nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                +'<% } %>'
+              +'</ul>'
+};
+
+      
+      // draw bar chart
+      var LineChartDemo2 = new Chart(mychart6).Line(barData6,options);
+      
+      document.getElementById("legendDiv3").innerHTML = LineChartDemo2.generateLegend();
+    </script>
+  </center>
+
+  {% endblock specific_treemap_second %}

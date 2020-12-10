@@ -10,11 +10,15 @@
 
     {% if post.sentiment_score > 0 %}
     <p>Sentiment Score: {{post.sentiment_score}}</p>
-    <p>Positive</p>
+    <p style="color:rgb(28, 12, 247);">Positive</p>
+
+    {% elif post.sentiment_score ==0 %}
+    <p>Sentiment Score: {{post.sentiment_score}}</p>
+    <p style="color:rgb(21, 238, 13);">Neutral</p>
 
     {% else %}
     <p>Sentiment Score: {{post.sentiment_score}}</p>
-    <p>Negative</p>
+    <p style="color:tomato;"> Negative </p>
 </div>
     {% endif %}
 </article>
@@ -31,7 +35,7 @@
           <div class="article-metadata">
             <a class="mr-2" href="#"> <h5>{{record.title}}</h5> </a>
             <small class="text-muted"><p>{{record.description}}</p></small>
-            <small class="text-muted"><a>{{record.url}}</a></small>
+            <form action={{ record.url }}><input type="submit" value="More Details" /></form>
         </div>
 
         
