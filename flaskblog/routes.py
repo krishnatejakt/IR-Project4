@@ -59,6 +59,7 @@ def home():
         for element in posts:
             name = element['user.screen_name'][0]
             element['user_name'] = name
+            element['profile_image'] = element['user.profile_image_url'][0]
             x.append(element)
             element["sentiment_score"] = sentiment_score(element['full_text'][0].lower())
 
@@ -79,6 +80,8 @@ def search():
 
     if form.validate_on_submit():
 
+        youtube_search_term = ''
+
         x = []
         if(form.search.data==''):
             query_term='\"\"'
@@ -97,15 +100,24 @@ def search():
 
         if(query_term!='\"\"'):
             query_news = news(query_term)
-            youtube_term = youtube_query(query_term)
+
         elif(location!='\"\"'):
-        
             query_news = news(location)
-            youtube_term = youtube_query(location)
+
         elif(poi!='\"\"'):
             query_news = news(poi)
-            youtube_term = youtube_query(poi)
 
+        if(query_term!='\"\"'):
+             youtube_search_term+=query_term+' '
+
+        if(poi!='\"\"'):
+            youtube_search_term+=poi+' '
+
+        if(location!='\"\"'):
+            youtube_search_term+=location
+
+        print(youtube_search_term)
+        youtube_term = youtube_query(youtube_search_term.replace(' ','%20'))
         data = urlopen('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&wt=json')
         posts = json.load(data)['response']['docs']
     
