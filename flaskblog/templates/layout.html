@@ -23,7 +23,7 @@
                     <a class="nav-item nav-link" href="/">Home</a>
                     <a class="nav-item nav-link" href="/search">Search</a>
                     <a class="nav-item nav-link" href="/visualization">Visualize</a>
-                    <a class="nav-item nav-link" href="/about">About</a>
+              
                     <a class="nav-item nav-link" href="{{url_for('static',filename='lda.html')}}">Topic Analysis</a>
                   </div>
                   <!-- Navbar Right Side -->
@@ -41,12 +41,15 @@
 
             <div class="row">
               <div class="col-md-4">
+                
             <h3>{% block content_specific %}{% endblock content_specific %}</h3>
             </div>
           
           </div>
             <div class="row">
+
               <div class="col-md-4">
+                <h4>Twitter Data</h4>
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                 {% for category,message in messages %}
@@ -61,13 +64,14 @@
               </div>
               <div class="col-md-4">
             
-
+                <h4>Breaking News!</h4>
 
                     {% block contents %}{% endblock contents %}
           
               </div>
 
               <div class="col-md-4">
+                <h5>Watch Youtube related Search Videos</h5>
                 {% block youtube_specific %}
                 {% endblock youtube_specific %}
       
