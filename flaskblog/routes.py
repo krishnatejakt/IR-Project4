@@ -116,9 +116,12 @@ def search():
         youtube_search_term = youtube_search_term.replace(' ','%20')
         youtube_term = youtube_query(youtube_search_term)
         
-        if(detect(form.search.data)!='en'):
-            query_news = news(form.search.data)
-        else:
+        try:
+            if(detect(form.search.data)!='en'):
+                query_news = news(form.search.data)
+            else:
+                query_news = news(news_search_term)
+        except:
             query_news = news(news_search_term)
 
         #print(news_search_term.encode('raw-unicode-escape').decode('utf-8'))
