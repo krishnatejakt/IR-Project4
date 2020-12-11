@@ -42,6 +42,7 @@ jupyter-core==4.6.3
 jupyterlab==2.2.6
 lazy-object-proxy==1.4.3
 libarchive-c==2.9
+langdetect==1.0.8
 llvmlite==0.34.0
 locket==0.2.0
 mock==4.0.2
