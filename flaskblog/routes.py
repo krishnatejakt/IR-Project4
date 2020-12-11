@@ -12,6 +12,7 @@ from flaskblog.models import poi
 from flaskblog.forms import covid, poi_names, country, topic
 from urllib.request import urlopen
 from urllib.parse import urlparse
+from langdetect import detect
 
 
 ip_address = '54.175.73.162'
@@ -60,9 +61,11 @@ def about():
 def search():
     gs = google_translator()
     form = covid()
+    
     if form.validate_on_submit():
 
         youtube_search_term = ''
+        news_search_term = ''
         x = []
         if(form.search.data==''):
             query_term='\"\"'
@@ -71,10 +74,17 @@ def search():
             #print(type(form.search.data))
             query_term = form.search.data
             flash(f'Results for {form.search.data}!','success')
-            query_term_dup = gs.translate(query_term,'en')
+
+            if(detect(query_term)!='en'):
+                query_term_dup = gs.translate(query_term,'en')
+            else:
+                query_term_dup = query_term
+            #query_term_dup = gs.translate(query_term,'en')
             query_term = query_term.replace(' ','%20')
-            query_term = query_term.encode("raw-unicode-escape").decode("utf-8")        
-            query_term = '\"' + query_term + '\"'
+            query_term = query_term.encode("raw-unicode-escape").decode("utf-8") 
+               
+        
+            
     
             #query_term = query_term.encode('utf-8')
 
@@ -91,17 +101,27 @@ def search():
 
         if(query_term_dup!='\"\"'):
              youtube_search_term+=query_term_dup+' '
+             news_search_term+=form.search.data+' '
 
         if(poi!='\"\"'):
             youtube_search_term+=poi+' '
+            news_search_term+=poi+' '
 
         if(location!='\"\"'):
             youtube_search_term+=location
+            news_search_term+=location+' '
+
 
 
         youtube_search_term = youtube_search_term.replace(' ','%20')
         youtube_term = youtube_query(youtube_search_term)
-        query_news = news(youtube_search_term)
+        
+        if(detect(form.search.data)!='en'):
+            query_news = news(form.search.data)
+        else:
+            query_news = news(news_search_term)
+
+        #print(news_search_term.encode('raw-unicode-escape').decode('utf-8'))
 
         youtube_search_term = '\"' + youtube_search_term + '\"'
 
@@ -137,11 +157,15 @@ def visualization():
         data = f.read()
     with open('static_json//correlation.json') as c:
         data1 = c.read()
+    
+    with open('static_json//pois_visualize.json') as m:
+        data2 = m.read()
 
     items = json.loads(data)
     items1 = json.loads(data1)
+    items2 = json.loads(data2)
     f.close()
     c.close()
-    
-    return render_template('visualization.html',items=items,items1=items1)
+    m.close()
+    return render_template('visualization.html',items=items,items1=items1,items2=items2)
 
