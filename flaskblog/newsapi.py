@@ -14,12 +14,12 @@ def news(query):
         'from=2020-11-17&'
         'sortBy=popularity&'
         'apiKey=8ab0444ae6e74d0eb01c52f941647514&'
-        'page=1')
+        'pageSize=15')
     else:
         url = url = ('http://newsapi.org/v2/top-headlines?'
        'country=us&'
        'apiKey=8ab0444ae6e74d0eb01c52f941647514&'
-       'page=1')
+       'pageSize=15')
 
     try:
         response = requests.get(url)

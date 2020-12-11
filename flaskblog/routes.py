@@ -36,7 +36,7 @@ query_news = []
 @app.route('/home')
 
 def home():
-        data = urlopen('http://'+ip_address+':8983/solr/IRF20P1/select?q=*%3A*&rows=20&sort=influencer_score%20desc%2C%20score%20desc&wt=json')
+        data = urlopen('http://'+ip_address+':8983/solr/IRF20P1/select?q=*%3A*&sort=influencer_score%20desc%2C%20score%20desc&wt=json&rows=15')
         posts = json.load(data)['response']['docs']
         youtube_term = youtube_query('Trending')
         x = []
@@ -105,8 +105,8 @@ def search():
 
         print(youtube_search_term)
 
-        data = urlopen('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&wt=json')
-        print('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&wt=json')
+        data = urlopen('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&rows=15&wt=json')
+        print('http://'+ip_address+':8983/solr/IRF20P1/select?defType=edismax&q=full_text%3A'+query_term+'%20AND%20user.screen_name%3A'+poi+'%20AND%20country%3A'+location+'&qf=full_text&sort=influencer_score%20desc%2C%20score%20desc&stopwords=true&wt=json&rows=15')
         posts = json.load(data)['response']['docs']
 
 
